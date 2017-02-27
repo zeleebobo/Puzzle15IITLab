@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewModels="clr-namespace:Taken15.ViewModels"
         xmlns:Models="clr-namespace:Taken15.Models" x:Class="Taken15.MainWindow"
-        Title="Puzzle 15" Width="500" Height="500" Background="#FF5B5B5B" MinHeight="320" MinWidth="320">
+        Title="Puzzle 15" Name="mainWindow" Width="500" Height="500" Background="#FF5B5B5B" MinHeight="320" MinWidth="320">
 
     <Window.DataContext>
-        <viewModels:MainWindowWM/>
+        <viewModels:MainWindowVM/>
     </Window.DataContext>
     <ItemsControl x:Name="itemsControl" ItemsSource="{Binding FieldCollection}" Margin="10">
             <ItemsControl.ItemsPanel>
@@ -35,7 +35,7 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Margin="3" Command="{Binding }" CommandParameter="{Binding Value}" Content="{Binding Value}" FontSize="36" FontWeight="Bold"/>
+                    <Button Margin="3" Command="{Binding DataContext.GameBlockClickCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding Value}" Content="{Binding Value}" FontSize="36" FontWeight="Bold"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

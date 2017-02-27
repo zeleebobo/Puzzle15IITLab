@@ -6,21 +6,37 @@ namespace Taken15.Models
 {
     class Field
     {
-        private List<GameBlock> gameField;
-        private readonly GameBlock[] locationGameBlocks;
+        private readonly GameBlock[] _locationGameBlocksArray;
 
         public Field(int size, int[] blocksInts)
         {
             Size = size;
-            gameField = new List<GameBlock>();
-            CreateBlocks(blocksInts);
-            locationGameBlocks = gameField.OrderBy(x => x.Value).ToArray();
+            _locationGameBlocksArray = CreateBlocks(blocksInts);
         }
 
-        private void CreateBlocks(int[] blocksInts)
+        public void Mix()
+        {
+            var rnd = new Random();
+            var countGameBlocks = _locationGameBlocksArray.Length;
+            for (int i = 0; i <  countGameBlocks * countGameBlocks; i++)
+            {
+                var relatedGameBlocksArray = GetRelatedGameBlocksArray(GetLocation(0));
+                var shiftingGameBlock = relatedGameBlocksArray[rnd.Next(relatedGameBlocksArray.Length)];
+                Shift(shiftingGameBlock.Value);
+            }
+        }
+
+        private GameBlock[] GetRelatedGameBlocksArray(GameBlock gameBlock)
+        {
+            return _locationGameBlocksArray.Where(x => x.IsRelatedWith(gameBlock)).ToArray();
+        }
+
+        private GameBlock[] CreateBlocks(int[] blocksInts)
         {
             int rowCount = 0;
             int colCount = 0;
+
+            var gameField = new List<GameBlock>();
             foreach (var blockInts in blocksInts)
             {
                 gameField.Add(new GameBlock(blockInts, colCount, rowCount));
@@ -29,32 +45,44 @@ namespace Taken15.Models
                 colCount = 0;
                 rowCount++;
             }
+            return gameField.OrderBy(x => x.Value).ToArray();
         }
 
         public int Size { get; set; }
 
         public GameBlock GetLocation(int value)
         {
-            return locationGameBlocks[value];
+            return _locationGameBlocksArray[value];
         }
 
         public void Shift(int value)
         {
             var movingGameBlock = GetLocation(value);
-            int prevY = movingGameBlock.PositionY;
-            int prevX = movingGameBlock.PositionX;
             var zero = GetLocation(0);
+
+            if (!movingGameBlock.IsRelatedWith(zero) || value > _locationGameBlocksArray.Length - 1 || value < 0)
+                throw new ArgumentException();
+
+            var prevY = movingGameBlock.PositionY;
+            var prevX = movingGameBlock.PositionX;
             movingGameBlock.PositionY = zero.PositionY;
             movingGameBlock.PositionX = zero.PositionX;
             zero.PositionY = prevY;
             zero.PositionX = prevX;
-            
         }
 
-        public GameBlock[] GameBlocksWithoutZero => locationGameBlocks.Skip(1).ToArray();
+        public GameBlock[] GameBlocksArrayWithoutZero => _locationGameBlocksArray.Skip(1).ToArray();
 
-        public GameBlock[] GameBlocks => locationGameBlocks;
+        public GameBlock[] GameBlocksArray => _locationGameBlocksArray;
 
-        public GameBlock this[int x, int y] => new GameBlock(1, x, y);
+        public int this[int x, int y]
+        {
+            get
+            {
+                if (x < 0 || y < 0 || x >= Size || y >= Size)
+                    throw new IndexOutOfRangeException();
+                return _locationGameBlocksArray.First(arg => arg.PositionX == x && arg.PositionY == y).Value; // Not const time but I don't use it 
+            }
+        }
     }
 }

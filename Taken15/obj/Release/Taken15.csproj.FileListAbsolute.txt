@@ -1,0 +1,17 @@
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\bin\Release\Taken15.exe.config
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\bin\Release\Taken15.exe
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\bin\Release\Taken15.pdb
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Taken15.csprojResolveAssemblyReference.cache
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Views\MainWindow.g.cs
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\App.g.cs
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\GeneratedInternalTypeHelper.g.cs
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Taken15_MarkupCompile.cache
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Taken15_MarkupCompile.lref
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Views\MainWindow.baml
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Taken15.g.resources
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Taken15.Properties.Resources.resources
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Taken15.csproj.GenerateResource.Cache
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Taken15.exe
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Taken15.pdb
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Views\Congratulations.g.cs
+C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Views\Congratulations.baml

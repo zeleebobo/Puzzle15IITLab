@@ -20,10 +20,10 @@ namespace Taken15.Models
             positionY = y;
         }
 
-        public bool IsNearZero(GameBlock zero)
+        public bool IsRelatedWith(GameBlock zero)
         {
-            return Math.Abs(zero.PositionX - PositionX) == 1 && Math.Abs(zero.PositionY - PositionY) == 0 ||
-                   Math.Abs(zero.PositionY - PositionY) == 1 && Math.Abs(zero.PositionX - PositionX) == 0;
+            return Math.Abs(zero.PositionX - PositionX) == 1 && zero.PositionY - PositionY == 0 ||
+                   Math.Abs(zero.PositionY - PositionY) == 1 && zero.PositionX - PositionX == 0;
         }
 
         public int Value { get; }
