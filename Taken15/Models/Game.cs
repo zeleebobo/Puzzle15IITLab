@@ -14,10 +14,10 @@ namespace Taken15.Models
             if (CountIsValid(blocksCount))
                 throw new ArgumentException();
 
-            Size = (int)Math.Sqrt(blocksCount);
-            var victoryBlocksArray = CreateVictoryFieldBlocksArray(Enumerable.Range(0, Size * Size).ToArray());
-            victoryField = new Field(Size, victoryBlocksArray);
-            field = new Field(Size, victoryBlocksArray);
+            FieldSize = (int)Math.Sqrt(blocksCount);
+            var victoryBlocksArray = CreateVictoryFieldBlocksArray(Enumerable.Range(0, FieldSize * FieldSize).ToArray());
+            victoryField = new Field(FieldSize, victoryBlocksArray);
+            field = new Field(FieldSize, victoryBlocksArray);
             field.Mix();
             IsOver = false;
         }
@@ -27,10 +27,21 @@ namespace Taken15.Models
             if (CountIsValid(blocks.Length) || !blocks.Any(x => x == 0))
                 throw new ArgumentException();
 
-            Size = (int) Math.Sqrt(blocks.Length);
-            field = new Field(Size, blocks);
-            victoryField = new Field(Size, CreateVictoryFieldBlocksArray(blocks));
+            FieldSize = (int) Math.Sqrt(blocks.Length);
+            field = new Field(FieldSize, blocks);
+            victoryField = new Field(FieldSize, CreateVictoryFieldBlocksArray(blocks));
             IsOver = false;
+        }
+
+        public void GameBlockClick(int value)
+        {
+            GameBlock zero = field.GetLocation(0);
+            if (field.GetLocation(value).IsRelatedWith(zero))
+            {
+                field.Shift(value);
+                if (field.GameBlocksArray.SequenceEqual(victoryField.GameBlocksArray))
+                    IsOver = true;
+            }
         }
 
         private bool CountIsValid(int count)
@@ -47,18 +58,7 @@ namespace Taken15.Models
             return victoryFieldList.ToArray();
         }
 
-        public void GameBlockClick(int value)
-        {
-            GameBlock zero = field.GetLocation(0);
-            if (field.GetLocation(value).IsRelatedWith(zero))
-            {
-                field.Shift(value);
-                if (field.GameBlocksArray.SequenceEqual(victoryField.GameBlocksArray))
-                    IsOver = true;
-            }
-        }
-
-        public int Size { get; }
+        public int FieldSize { get; }
 
         public bool IsOver { get; private set; }
 

@@ -7,11 +7,13 @@ namespace Taken15.Models
     class Field
     {
         private readonly GameBlock[] _locationGameBlocksArray;
+        private readonly GameBlock[,] _locationGameBlocksMatrix;
 
         public Field(int size, int[] blocksInts)
         {
             Size = size;
             _locationGameBlocksArray = CreateBlocks(blocksInts);
+            _locationGameBlocksMatrix = CreateMatrix();
         }
 
         public void Mix()
@@ -20,15 +22,10 @@ namespace Taken15.Models
             var countGameBlocks = _locationGameBlocksArray.Length;
             for (int i = 0; i <  countGameBlocks * countGameBlocks; i++)
             {
-                var relatedGameBlocksArray = GetRelatedGameBlocksArray(GetLocation(0));
-                var shiftingGameBlock = relatedGameBlocksArray[rnd.Next(relatedGameBlocksArray.Length)];
+                var zeroRelatedGameBlocksArray = _locationGameBlocksArray.Where(x => x.IsRelatedWith(GetLocation(0))).ToArray();
+                var shiftingGameBlock = zeroRelatedGameBlocksArray[rnd.Next(zeroRelatedGameBlocksArray.Length)];
                 Shift(shiftingGameBlock.Value);
             }
-        }
-
-        private GameBlock[] GetRelatedGameBlocksArray(GameBlock gameBlock)
-        {
-            return _locationGameBlocksArray.Where(x => x.IsRelatedWith(gameBlock)).ToArray();
         }
 
         private GameBlock[] CreateBlocks(int[] blocksInts)
@@ -48,6 +45,16 @@ namespace Taken15.Models
             return gameField.OrderBy(x => x.Value).ToArray();
         }
 
+        private GameBlock[,] CreateMatrix()
+        {
+            var matrix = new GameBlock[Size, Size];
+            foreach (var gameBlock in _locationGameBlocksArray)
+            {
+                matrix[gameBlock.PositionX, gameBlock.PositionY] = gameBlock;
+            }
+            return matrix;
+        }
+
         public int Size { get; set; }
 
         public GameBlock GetLocation(int value)
@@ -63,6 +70,11 @@ namespace Taken15.Models
             if (!movingGameBlock.IsRelatedWith(zero) || value > _locationGameBlocksArray.Length - 1 || value < 0)
                 throw new ArgumentException();
 
+            // Swap in matrix
+            _locationGameBlocksMatrix[zero.PositionX, zero.PositionY] = movingGameBlock;
+            _locationGameBlocksMatrix[movingGameBlock.PositionX, movingGameBlock.PositionY] = zero;
+
+            // Swap
             var prevY = movingGameBlock.PositionY;
             var prevX = movingGameBlock.PositionX;
             movingGameBlock.PositionY = zero.PositionY;
@@ -81,7 +93,7 @@ namespace Taken15.Models
             {
                 if (x < 0 || y < 0 || x >= Size || y >= Size)
                     throw new IndexOutOfRangeException();
-                return _locationGameBlocksArray.First(arg => arg.PositionX == x && arg.PositionY == y).Value; // Not const time but I don't use it 
+                return _locationGameBlocksMatrix[x, y].Value;
             }
         }
     }
