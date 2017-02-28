@@ -15,3 +15,20 @@ c:\users\админ\documents\visual studio 2012\Projects\Taken15\Taken15\obj\De
 c:\users\админ\documents\visual studio 2012\Projects\Taken15\Taken15\obj\Debug\Taken15.pdb
 C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Debug\Views\Congratulations.g.cs
 C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Debug\Views\Congratulations.baml
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\bin\Debug\Taken15.exe.config
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Debug\Taken15.exe
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Debug\Taken15.pdb
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\bin\Debug\Taken15.exe
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\bin\Debug\Taken15.pdb
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Debug\Taken15.csprojResolveAssemblyReference.cache
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Debug\Views\Congratulations.g.cs
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Debug\Views\MainWindow.g.cs
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Debug\App.g.cs
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Debug\Taken15_MarkupCompile.cache
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Debug\Taken15_MarkupCompile.lref
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Debug\Views\Congratulations.baml
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Debug\Views\MainWindow.baml
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Debug\Taken15.g.resources
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Debug\Taken15.Properties.Resources.resources
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Debug\Taken15.csproj.GenerateResource.Cache

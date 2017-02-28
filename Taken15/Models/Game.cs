@@ -48,7 +48,7 @@ namespace Taken15.Models
         {
             const double tolerance = 0.000001;
             var size = Math.Sqrt(count);
-            return Math.Abs(size - (int) size) > tolerance || Math.Abs(size - 1) < tolerance;
+            return Math.Abs(size - (int) size) > tolerance || size - 1 < tolerance;
         }
 
         private int[] CreateVictoryFieldBlocksArray(int[] blocks)

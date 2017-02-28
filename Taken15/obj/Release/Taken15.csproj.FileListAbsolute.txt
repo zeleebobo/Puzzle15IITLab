@@ -15,3 +15,6 @@ C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Re
 C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Taken15.pdb
 C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Views\Congratulations.g.cs
 C:\Users\Админ\Documents\Visual Studio 2012\Projects\Taken15\Taken15\obj\Release\Views\Congratulations.baml
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\bin\Release\Taken15.exe.config
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Release\Taken15.exe
+C:\Users\Админ\Desktop\Puzzle15IITLab\Taken15\obj\Release\Taken15.pdb
