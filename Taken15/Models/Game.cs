@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Taken15.Models
 {
@@ -11,57 +14,70 @@ namespace Taken15.Models
 
         public Game(int blocksCount) // Default constructor
         {
-            if (CountIsValid(blocksCount))
+            if (BlocksCountIsValid(blocksCount))
                 throw new ArgumentException();
 
-            FieldSize = (int)Math.Sqrt(blocksCount);
-            var victoryBlocksArray = CreateVictoryFieldBlocksArray(Enumerable.Range(0, FieldSize * FieldSize).ToArray());
-            victoryField = new Field(FieldSize, victoryBlocksArray);
-            field = new Field(FieldSize, victoryBlocksArray);
+            Size = (int)Math.Sqrt(blocksCount);
+            var victoryBlocksArray = CreateVictoryFieldSequenceArray(Enumerable.Range(0, Size * Size).ToArray());
+            victoryField = new Field(Size, victoryBlocksArray);
+            field = new Field(Size, victoryBlocksArray);
             field.Mix();
             IsOver = false;
         }
 
         public Game(params int[] blocks) // Custom game
         {
-            if (CountIsValid(blocks.Length) || !blocks.Any(x => x == 0))
+            if (BlocksCountIsValid(blocks.Length) || !blocks.Any(x => x == 0))
                 throw new ArgumentException();
 
-            FieldSize = (int) Math.Sqrt(blocks.Length);
-            field = new Field(FieldSize, blocks);
-            victoryField = new Field(FieldSize, CreateVictoryFieldBlocksArray(blocks));
+            Size = (int) Math.Sqrt(blocks.Length);
+            field = new Field(Size, blocks);
+            victoryField = new Field(Size, CreateVictoryFieldSequenceArray(blocks));
             IsOver = false;
+        }
+
+        public static Game FromCsv(string path)
+        {
+            var arr = (from line in File.ReadAllLines(path)
+                       from item in line.Split(';')
+                       select Convert.ToInt32(item)).ToArray();
+
+            if (arr.Length != arr.Distinct().Count())
+                throw new DataException();
+
+            return new Game(arr);
         }
 
         public void GameBlockClick(int value)
         {
-            GameBlock zero = field.GetLocation(0);
-            if (field.GetLocation(value).IsRelatedWith(zero))
-            {
-                field.Shift(value);
-                if (field.GameBlocksArray.SequenceEqual(victoryField.GameBlocksArray))
-                    IsOver = true;
-            }
+            var zero = field.GetLocation(0);
+            if (!field.GetLocation(value).IsRelatedWith(zero)) return;
+            field.Shift(value);
+            if (field.GameBlocksArray.SequenceEqual(victoryField.GameBlocksArray))
+                IsOver = true;
         }
 
-        private bool CountIsValid(int count)
+        private bool BlocksCountIsValid(int count)
         {
             const double tolerance = 0.000001;
             var size = Math.Sqrt(count);
             return Math.Abs(size - (int) size) > tolerance || size - 1 < tolerance;
         }
 
-        private int[] CreateVictoryFieldBlocksArray(int[] blocks)
+        private int[] CreateVictoryFieldSequenceArray(int[] blocks)
         {
             var victoryFieldList = blocks.Where(x => x != 0).OrderBy(x => x).ToList();
             victoryFieldList.Add(0);
             return victoryFieldList.ToArray();
         }
 
-        public int FieldSize { get; }
+        public int Size { get; }
 
         public bool IsOver { get; private set; }
 
-        public GameBlock[] Blocks => field.GameBlocksArrayWithoutZero;
+        public int this[int x, int y] => field[x, y]; // I don't know why this 
+        public void Shift(int value) => field.Shift(value); // and this
+
+        public GameBlock[] Blocks => field.GameBlocksArray;
     }
 }

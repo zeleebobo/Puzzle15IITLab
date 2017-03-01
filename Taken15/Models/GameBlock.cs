@@ -8,11 +8,6 @@ namespace Taken15.Models
         private int positionX;
         private int positionY;
 
-        public GameBlock(int value)
-        {
-            Value = value;
-        }
-
         public GameBlock(int value, int x, int y)
         {
             Value = value;
@@ -20,10 +15,10 @@ namespace Taken15.Models
             positionY = y;
         }
 
-        public bool IsRelatedWith(GameBlock zero)
+        public bool IsRelatedWith(GameBlock gameBlock)
         {
-            return Math.Abs(zero.PositionX - PositionX) == 1 && zero.PositionY - PositionY == 0 ||
-                   Math.Abs(zero.PositionY - PositionY) == 1 && zero.PositionX - PositionX == 0;
+            return Math.Abs(gameBlock.PositionX - PositionX) + gameBlock.PositionY - PositionY == 1 ||
+                   Math.Abs(gameBlock.PositionY - PositionY) + gameBlock.PositionX - PositionX == 1;
         }
 
         public int Value { get; }
@@ -67,7 +62,7 @@ namespace Taken15.Models
             return !(lhs == rhs);
         }
 
-        void OnPropertyChanged(string prop)
+        private void OnPropertyChanged(string prop)
         {
             if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs(prop)); }
         }

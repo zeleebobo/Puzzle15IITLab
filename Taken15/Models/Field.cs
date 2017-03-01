@@ -6,35 +6,35 @@ namespace Taken15.Models
 {
     class Field
     {
-        private readonly GameBlock[] _locationGameBlocksArray;
-        private readonly GameBlock[,] _locationGameBlocksMatrix;
+        private readonly GameBlock[] locationGameBlocksArray;
+        private readonly GameBlock[,] locationGameBlocksMatrix;
 
         public Field(int size, int[] blocksInts)
         {
             Size = size;
-            _locationGameBlocksArray = CreateBlocks(blocksInts);
-            _locationGameBlocksMatrix = CreateMatrix();
+            locationGameBlocksArray = CreateBlocksArray(blocksInts);
+            locationGameBlocksMatrix = CreateBlocksMatrix();
         }
 
         public void Mix()
         {
             var rnd = new Random();
-            var countGameBlocks = _locationGameBlocksArray.Length;
-            for (int i = 0; i <  countGameBlocks * countGameBlocks; i++)
+            var countGameBlocks = locationGameBlocksArray.Length;
+            for (int i = 0; i < countGameBlocks * countGameBlocks; i++)
             {
-                var zeroRelatedGameBlocksArray = _locationGameBlocksArray.Where(x => x.IsRelatedWith(GetLocation(0))).ToArray();
+                var zeroRelatedGameBlocksArray = locationGameBlocksArray.Where(x => x.IsRelatedWith(GetLocation(0))).ToArray();
                 var shiftingGameBlock = zeroRelatedGameBlocksArray[rnd.Next(zeroRelatedGameBlocksArray.Length)];
                 Shift(shiftingGameBlock.Value);
             }
         }
 
-        private GameBlock[] CreateBlocks(int[] blocksInts)
+        private GameBlock[] CreateBlocksArray(IEnumerable<int> blocksSequence)
         {
             int rowCount = 0;
             int colCount = 0;
 
             var gameField = new List<GameBlock>();
-            foreach (var blockInts in blocksInts)
+            foreach (var blockInts in blocksSequence)
             {
                 gameField.Add(new GameBlock(blockInts, colCount, rowCount));
                 colCount++;
@@ -45,21 +45,14 @@ namespace Taken15.Models
             return gameField.OrderBy(x => x.Value).ToArray();
         }
 
-        private GameBlock[,] CreateMatrix()
+        private GameBlock[,] CreateBlocksMatrix()
         {
             var matrix = new GameBlock[Size, Size];
-            foreach (var gameBlock in _locationGameBlocksArray)
+            foreach (var gameBlock in locationGameBlocksArray)
             {
                 matrix[gameBlock.PositionX, gameBlock.PositionY] = gameBlock;
             }
             return matrix;
-        }
-
-        public int Size { get; set; }
-
-        public GameBlock GetLocation(int value)
-        {
-            return _locationGameBlocksArray[value];
         }
 
         public void Shift(int value)
@@ -67,12 +60,12 @@ namespace Taken15.Models
             var movingGameBlock = GetLocation(value);
             var zero = GetLocation(0);
 
-            if (!movingGameBlock.IsRelatedWith(zero) || value > _locationGameBlocksArray.Length - 1 || value < 0)
+            if (!movingGameBlock.IsRelatedWith(zero) || value > locationGameBlocksArray.Length - 1 || value < 0)
                 throw new ArgumentException();
 
             // Swap in matrix
-            _locationGameBlocksMatrix[zero.PositionX, zero.PositionY] = movingGameBlock;
-            _locationGameBlocksMatrix[movingGameBlock.PositionX, movingGameBlock.PositionY] = zero;
+            locationGameBlocksMatrix[zero.PositionX, zero.PositionY] = movingGameBlock;
+            locationGameBlocksMatrix[movingGameBlock.PositionX, movingGameBlock.PositionY] = zero;
 
             // Swap
             var prevY = movingGameBlock.PositionY;
@@ -83,18 +76,12 @@ namespace Taken15.Models
             zero.PositionX = prevX;
         }
 
-        public GameBlock[] GameBlocksArrayWithoutZero => _locationGameBlocksArray.Skip(1).ToArray();
+        public GameBlock GetLocation(int value) => locationGameBlocksArray[value];
 
-        public GameBlock[] GameBlocksArray => _locationGameBlocksArray;
+        public GameBlock[] GameBlocksArray => locationGameBlocksArray;
 
-        public int this[int x, int y]
-        {
-            get
-            {
-                if (x < 0 || y < 0 || x >= Size || y >= Size)
-                    throw new IndexOutOfRangeException();
-                return _locationGameBlocksMatrix[x, y].Value;
-            }
-        }
+        public int this[int x, int y] => locationGameBlocksMatrix[x, y].Value;
+
+        public int Size { get; set; }
     }
 }
