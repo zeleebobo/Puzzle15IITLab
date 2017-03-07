@@ -35,8 +35,8 @@
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Margin="3" Command="{Binding DataContext.GameBlockClickCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding Value}" Content="{Binding Value}" FontSize="36" FontWeight="Bold"/>
-                </DataTemplate>
+                <Button Margin="3" Command="{Binding DataContext.GameBlockClickCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding Value}" Content="{Binding Value}" FontSize="36" FontWeight="Bold"/>
+            </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 </Window>

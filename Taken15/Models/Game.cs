@@ -9,21 +9,8 @@ namespace Taken15.Models
 {
     class Game
     {
-        private readonly Field field;
-        private readonly Field victoryField;
-
-        public Game(int blocksCount) // Default constructor
-        {
-            if (BlocksCountIsValid(blocksCount))
-                throw new ArgumentException();
-
-            Size = (int)Math.Sqrt(blocksCount);
-            var victoryBlocksArray = CreateVictoryFieldSequenceArray(Enumerable.Range(0, Size * Size).ToArray());
-            victoryField = new Field(Size, victoryBlocksArray);
-            field = new Field(Size, victoryBlocksArray);
-            field.Mix();
-            IsOver = false;
-        }
+        protected Field field;
+        protected Field victoryField;
 
         public Game(params int[] blocks) // Custom game
         {
@@ -48,32 +35,33 @@ namespace Taken15.Models
             return new Game(arr);
         }
 
-        public void GameBlockClick(int value)
+        public bool GameBlockClick(int value)
         {
             var zero = field.GetLocation(0);
-            if (!field.GetLocation(value).IsRelatedWith(zero)) return;
+            if (!field.GetLocation(value).IsRelatedWith(zero)) return false;
             field.Shift(value);
             if (field.GameBlocksArray.SequenceEqual(victoryField.GameBlocksArray))
                 IsOver = true;
+            return true;
         }
 
-        private bool BlocksCountIsValid(int count)
+        protected bool BlocksCountIsValid(int count)
         {
             const double tolerance = 0.000001;
             var size = Math.Sqrt(count);
             return Math.Abs(size - (int) size) > tolerance || size - 1 < tolerance;
         }
 
-        private int[] CreateVictoryFieldSequenceArray(int[] blocks)
+        protected int[] CreateVictoryFieldSequenceArray(int[] blocks)
         {
             var victoryFieldList = blocks.Where(x => x != 0).OrderBy(x => x).ToList();
             victoryFieldList.Add(0);
             return victoryFieldList.ToArray();
         }
 
-        public int Size { get; }
+        public int Size { get; protected set; }
 
-        public bool IsOver { get; private set; }
+        public bool IsOver { get; protected set; }
 
         public int this[int x, int y] => field[x, y]; // I don't know why this 
         public void Shift(int value) => field.Shift(value); // and this

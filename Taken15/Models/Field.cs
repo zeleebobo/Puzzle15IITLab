@@ -60,7 +60,7 @@ namespace Taken15.Models
             var movingGameBlock = GetLocation(value);
             var zero = GetLocation(0);
 
-            if (!movingGameBlock.IsRelatedWith(zero) || value > locationGameBlocksArray.Length - 1 || value < 0)
+            if (!movingGameBlock.IsRelatedWith(zero))
                 throw new ArgumentException();
 
             // Swap in matrix
