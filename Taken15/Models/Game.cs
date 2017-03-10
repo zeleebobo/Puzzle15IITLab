@@ -63,9 +63,9 @@ namespace Taken15.Models
 
         public bool IsOver { get; protected set; }
 
-        public int this[int x, int y] => field[x, y]; // I don't know why this 
-        public void Shift(int value) => field.Shift(value); // and this
+        public int this[int x, int y] { get { return field[x, y];}} // I don't know why this 
+        public void Shift(int value) { field.Shift(value);} // and this
 
-        public GameBlock[] Blocks => field.GameBlocksArray;
+        public GameBlock[] Blocks { get { return field.GameBlocksArray;}}
     }
 }

@@ -21,7 +21,7 @@ namespace Taken15.Models
                    Math.Abs(gameBlock.PositionY - PositionY) + gameBlock.PositionX - PositionX == 1;
         }
 
-        public int Value { get; }
+        public int Value { get; private set; }
 
         public int PositionX
         {

@@ -76,11 +76,11 @@ namespace Taken15.Models
             zero.PositionX = prevX;
         }
 
-        public GameBlock GetLocation(int value) => locationGameBlocksArray[value];
+        public GameBlock GetLocation(int value) { return locationGameBlocksArray[value]; }
 
-        public GameBlock[] GameBlocksArray => locationGameBlocksArray;
+        public GameBlock[] GameBlocksArray { get { return locationGameBlocksArray; } }
 
-        public int this[int x, int y] => locationGameBlocksMatrix[x, y].Value;
+        public int this[int x, int y] { get { return locationGameBlocksMatrix[x, y].Value; } }
 
         public int Size { get; set; }
     }

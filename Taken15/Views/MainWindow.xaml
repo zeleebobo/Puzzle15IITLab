@@ -8,6 +8,10 @@
     <Window.DataContext>
         <viewModels:MainWindowVM/>
     </Window.DataContext>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding GameBackCommand}" Gesture="Ctrl + Z"/>
+        <KeyBinding Command="{Binding GameForwardCommand}" Gesture="Ctrl + F" />
+    </Window.InputBindings>
     <ItemsControl x:Name="itemsControl" ItemsSource="{Binding FieldCollection}" Margin="10">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

@@ -13,12 +13,12 @@ namespace Taken15.ViewModels
 {
     class MainWindowVM
     {
-        private readonly Game game;
+        private readonly Game3 game;
 
         public MainWindowVM()
         {
-            //game = new Game(/*1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 15*/ 16);
-            game = Game.FromCsv("C:/Users/Админ/Desktop/Puzzle15IITLab/Taken15/FieldFile.csv");
+            game = new Game3(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 15);
+            //game = Game.FromCsv("C:/Users/Админ/Desktop/Puzzle15IITLab/Taken15/FieldFile.csv");
             GameBlockClickCommand = new RelayCommand(x =>
             {
                 game.GameBlockClick((int) x);
@@ -27,11 +27,17 @@ namespace Taken15.ViewModels
                 var congratulations = new Congratulations();
                 congratulations.Show();
             });
+            GameBackCommand = new RelayCommand(x => game.Back());
+            GameForwardCommand = new RelayCommand(x => game.Forward());
         }
 
         public RelayCommand GameBlockClickCommand { get; set; }
 
-        public IEnumerable<GameBlock> FieldCollection => game.Blocks.Skip(1);
+        public RelayCommand GameBackCommand { get; set; }
+
+        public RelayCommand GameForwardCommand { get; set; }
+
+        public IEnumerable<GameBlock> FieldCollection { get { return game.Blocks.Skip(1); } }
 
     }
 }
