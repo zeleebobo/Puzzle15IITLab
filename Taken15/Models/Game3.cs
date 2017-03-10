@@ -29,8 +29,7 @@ namespace Taken15.Models
         {
             if (lastMotionIndex != -1)
             {
-                Shift(motions.ElementAt(lastMotionIndex));
-                lastMotionIndex--;
+                Shift(motions[lastMotionIndex--]);
             }
         }
 

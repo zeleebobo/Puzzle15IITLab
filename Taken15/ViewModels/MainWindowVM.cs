@@ -17,7 +17,7 @@ namespace Taken15.ViewModels
 
         public MainWindowVM()
         {
-            game = new Game3(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 15);
+            game = new Game3(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 24);
             //game = Game.FromCsv("C:/Users/Админ/Desktop/Puzzle15IITLab/Taken15/FieldFile.csv");
             GameBlockClickCommand = new RelayCommand(x =>
             {
